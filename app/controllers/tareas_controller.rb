@@ -24,6 +24,7 @@ class TareasController < ApplicationController
   # GET /tareas/1
   # GET /tareas/1.json
   def show
+    @users = User.all
   end
 
   # GET /tareas/new
