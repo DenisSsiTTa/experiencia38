@@ -11,12 +11,12 @@ require 'faker'
 Tarea.delete_all
 User.delete_all
 
+User.create(name: 'Denisse Noemí Velásquez Salazar', email: 'denissev@gmail.com', foto: Faker::Avatar.image("my-own-slug", "50x50", "jpg"), password: '123456')
 
 10.times do
-    User.create(name: Faker::Name.name_with_middle, email: Faker::Internet.email, foto: Faker::Avatar.image("my-own-slug", "50x50", "jpg"))
+    User.create(name: Faker::Name.name_with_middle, email: Faker::Internet.email, foto: Faker::Avatar.image("my-own-slug", "50x50", "jpg"), password: '123456')
 end
 
 10.times do
     Tarea.create(title: Faker::Company.name, description: Faker::Company.catch_phrase, ubicacion: Faker::Company.logo)
 end
-

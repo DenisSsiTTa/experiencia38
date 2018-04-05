@@ -1,11 +1,25 @@
 class TareasController < ApplicationController
-  before_action :set_tarea, only: [:show, :edit, :update, :destroy]
+  before_action :set_tarea, only: [:show, :edit, :update, :destroy, :add_ok, :remove_ok]
+  before_action :authenticate_user!, only: [:edit, :update, :destroy, :index]
 
   # GET /tareas
   # GET /tareas.json
   def index
     @tareas = Tarea.all
   end
+
+  def add_ok
+    @user = User.find(current_user.id)
+    @tarea.users << @user
+    redirect_to tarea_url
+  end
+
+  def remove_ok
+      user = User.find(current_user.id)
+      @tarea.users.delete(user)
+      redirect_to tarea_url
+  end
+
 
   # GET /tareas/1
   # GET /tareas/1.json
@@ -15,6 +29,7 @@ class TareasController < ApplicationController
   # GET /tareas/new
   def new
     @tarea = Tarea.new
+    format.html { redirect_to tareas_url, notice: 'Próximamente.' }
   end
 
   # GET /tareas/1/edit
@@ -25,16 +40,14 @@ class TareasController < ApplicationController
   # POST /tareas.json
   def create
     @tarea = Tarea.new(tarea_params)
-
-    respond_to do |format|
-      if @tarea.save
-        format.html { redirect_to @tarea, notice: 'Tarea was successfully created.' }
-        format.json { render :show, status: :created, location: @tarea }
-      else
-        format.html { render :new }
-        format.json { render json: @tarea.errors, status: :unprocessable_entity }
-      end
-    end
+    format.html { redirect_to tareas_url, notice: 'Próximamente.' }
+    # respond_to do |format|
+    #  if @tarea.save
+    #    format.html { redirect_to @tarea, notice: 'Tarea was successfully created.' }
+    #  else
+    #    format.html { render :new }
+    #  end
+    #end
   end
 
   # PATCH/PUT /tareas/1
